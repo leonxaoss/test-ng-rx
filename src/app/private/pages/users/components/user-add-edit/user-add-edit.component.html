@@ -1,0 +1,22 @@
+<div class="container">
+  <div mat-dialog-content class="form-block" [formGroup]="form">
+    <p>{{isAdd ? 'Add' : 'Edit'}}</p>
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password">
+    </mat-form-field>
+    <div mat-dialog-actions>
+      <button mat-raised-button color="primary" (click)="saveUser()">Save</button>
+      <button mat-raised-button color="warn" type="button" [mat-dialog-close]="">Close</button>
+    </div>
+  </div>
+  <app-loader *ngIf="userLoader$ | async"></app-loader>
+</div>
