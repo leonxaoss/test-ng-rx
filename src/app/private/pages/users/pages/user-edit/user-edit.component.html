@@ -1,2 +1,15 @@
-<p>user-edit works!</p>
-{{(user$ | async) | json}}
+<div class="container" *ngIf="user$ | async as user">
+  <div class="user__box">
+    <div class="user__title">Name</div>
+    <div class="user__descr">{{user.name}}</div>
+  </div>
+  <div class="user__box">
+    <div class="user__title">Username</div>
+    <div class="user__descr">{{user.username}}</div>
+  </div>
+  <div class="user__box">
+    <div class="user__title">Password</div>
+    <div class="user__descr">{{user.password}}</div>
+  </div>
+  <app-loader *ngIf="userLoader$ | async"></app-loader>
+</div>

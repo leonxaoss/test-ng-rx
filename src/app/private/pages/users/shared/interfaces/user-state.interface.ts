@@ -4,4 +4,5 @@ export interface UserState {
   allUsers: User[];
   user: User;
   userLoader: boolean;
+  userListLoader: boolean;
 }

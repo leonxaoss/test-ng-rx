@@ -1,5 +1,9 @@
 <div class="confirm" mat-dialog-content>
-  <p>{{data.text}}</p>
-  <button mat-raised-button color="primary" (click)="accept()">Save</button>
-  <button mat-raised-button color="warn" type="button" (click)="reject()">Cancel</button>
+  <p>{{data.titles.title}}</p>
+  <button mat-raised-button color="primary" style="margin-right: 10px" (click)="accept()">
+    {{data.titles.btnConfirm || 'Ok'}}
+  </button>
+  <button mat-raised-button color="warn" type="button" (click)="reject()">
+    {{data.titles.btnReject || 'Cancel'}}
+  </button>
 </div>

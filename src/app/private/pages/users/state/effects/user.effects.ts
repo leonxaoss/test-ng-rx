@@ -1,4 +1,5 @@
-import * as userActions from '../actions/user.action';
+// import * as userActions from '../actions/user.action';
+import { userActions } from '../actions/user.action';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { UserService } from '../../providers/services/user/user.service';
 import { catchError, map, mergeMap, of, tap } from 'rxjs';
@@ -110,19 +111,6 @@ export class UserEffects {
     dispatch: false,
   })
 
-  // closeUserDialog$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(
-  //       userActions.editUserSuccess,
-  //       userActions.addUserSuccess,
-  //     ),
-  //     tap(() => {
-  //       this.dialog.closeAll();
-  //     })
-  //   )
-  // }, {
-  //   dispatch: false,
-  // })
 
   constructor(
     private readonly actions$: Actions,

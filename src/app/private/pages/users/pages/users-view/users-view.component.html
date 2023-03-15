@@ -1,11 +1,11 @@
 <p>users-view works!</p>
-<button mat-raised-button color="primary" (click)="addEditUser(null)">Add User</button>
+<button mat-raised-button color="primary" (click)="addUser()">Add User</button>
 <hr>
 <div class="container">
   <ul>
     <li *ngFor="let user of (users$ | async)">
       <a [routerLink]="['edit-user', user.id]">{{user.name}} </a>
-      <mat-icon color="primary" (click)="addEditUser(user)">edit</mat-icon>
+      <mat-icon color="primary" (click)="editUser(user)">edit</mat-icon>
       <mat-icon color="warn" (click)="removeUser(user.id)">delete</mat-icon>
     </li>
   </ul>

@@ -10,6 +10,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideEffects } from '@ngrx/effects';
+import * as ConfirmEffects from './app/store/effects/confirm';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -21,7 +23,8 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(MatDialogModule),
     provideStoreDevtools({
       maxAge: 25,
-    })
+    }),
+    provideEffects(ConfirmEffects)
   ],
 })
   .catch(err => console.error(err));

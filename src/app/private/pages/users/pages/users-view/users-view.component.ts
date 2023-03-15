@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { selectLoader, selectUsers } from '../../state/selectors/user.selectors';
-import { loadUsers, openUserDialog, removeUser } from '../../state/actions/user.action';
+import { userActions } from '../../state/actions/user.action';
 import { Observable } from 'rxjs';
 import { User } from '../../../../../shared/interfaces/user.interface';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { LoaderComponent } from '../../../../../components/loader/loader.component';
+import { requestConformation } from '../../../../../store/actions/confirm';
+import { userFeature } from '../../state/reducers/user.reducer';
 
 @Component({
   selector: 'app-users-view',
@@ -19,23 +20,38 @@ import { LoaderComponent } from '../../../../../components/loader/loader.compone
 })
 export class UsersViewComponent implements OnInit {
 
-  users$: Observable<User[]> = this.store.select(selectUsers);
-  showLoader: Observable<boolean> = this.store.select(selectLoader);
+  users$: Observable<User[]> = this.store.select(userFeature.selectAllUsers);
+  showLoader: Observable<boolean> = this.store.select(userFeature.selectUserListLoader);
 
   constructor(private readonly store: Store) {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadUsers());
+    this.store.dispatch(userActions.loadUsers());
   }
 
-  public addEditUser(user: User | null): void {
-    this.store.dispatch(openUserDialog({user}));
+  public addUser(): void {
+    this.store.dispatch(userActions.openUserDialog({user: null}));
   }
 
+  public editUser(user: User): void {
+    this.store.dispatch(requestConformation({
+      titles: {
+        title: 'Do you want to edit this User',
+        btnConfirm: 'Yes Edit'
+      },
+      confirm: userActions.openUserDialog({user: user
+      })}));
+  }
 
   public removeUser(id: number): void {
-    this.store.dispatch(removeUser({userId: id}));
+    this.store.dispatch(requestConformation({
+      titles: {
+        title: 'Do you want to remove this User',
+        btnConfirm: 'Yes Delete'
+      },
+      confirm: userActions.removeUser({userId: id})
+    }));
   }
 
 }
