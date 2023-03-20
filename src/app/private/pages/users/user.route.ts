@@ -3,7 +3,7 @@ import { UsersComponent } from './users.component';
 import { provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { UserEffects } from './state/effects/user.effects'
-import { userFeature } from './state/reducers/user.reducer';
+import { userFeature } from './state/features/user.feature';
 
 export const UserRoute: Route[] = [
   {

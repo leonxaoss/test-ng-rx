@@ -1,19 +1,12 @@
-import { UserState } from '../../shared/interfaces/user-state.interface';
-import { createFeature, createReducer, on } from '@ngrx/store';
+import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { userActions } from '../actions/user.action';
-import { User } from '../../../../../shared/interfaces/user.interface';
+import { initialUserState } from '../states/user.state';
 
-export const initialState: UserState = {
-  allUsers: [],
-  user: {} as User,
-  userLoader: false,
-  userListLoader: false,
-};
 
 export const userFeature = createFeature({
   name: 'users',
   reducer: createReducer(
-    initialState,
+    initialUserState,
     on(userActions.loadUsersSuccess, (state, action) => ({
       ...state,
       allUsers: action.users
@@ -29,14 +22,20 @@ export const userFeature = createFeature({
       userActions.loadUsersFailure,
       (state) => ({
         ...state,
-        userListLoader: false,
+        loaders: {
+          ...state.loaders,
+          userListLoader: false,
+        },
       })),
 
     on(
       userActions.loadUsers,
       (state) => ({
         ...state,
-        userListLoader: true,
+        loaders: {
+          ...state.loaders,
+          userListLoader: true,
+        },
       })),
 
     on(
@@ -50,7 +49,10 @@ export const userFeature = createFeature({
       userActions.removeUserFailure,
       (state) => ({
         ...state,
-        userLoader: false,
+        loaders: {
+          ...state.loaders,
+          userLoader: false,
+        },
       })),
 
     on(
@@ -60,9 +62,16 @@ export const userFeature = createFeature({
       userActions.removeUser,
       (state) => ({
         ...state,
-        userLoader: true,
+        loaders: {
+          ...state.loaders,
+          userLoader: true,
+        },
       })),
-  )
+  ),
+  extraSelectors: ({ selectLoaders }) => ({
+    selectUserLoader: createSelector(selectLoaders, selectLoaders => selectLoaders.userLoader),
+    selectUserListLoader: createSelector(selectLoaders, selectLoaders => selectLoaders.userListLoader),
+  }),
 })
 
 

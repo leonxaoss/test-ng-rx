@@ -10,7 +10,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { userActions } from '../../state/actions/user.action';
 import { LoaderComponent } from '../../../../../components/loader/loader.component';
 import { Observable, takeWhile } from 'rxjs';
-import { userFeature } from '../../state/reducers/user.reducer';
+import { userFeature } from '../../state/features/user.feature';
 
 @Component({
   selector: 'app-user-add-edit',

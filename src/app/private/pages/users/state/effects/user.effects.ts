@@ -1,13 +1,13 @@
-// import * as userActions from '../actions/user.action';
 import { userActions } from '../actions/user.action';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { UserService } from '../../providers/services/user/user.service';
-import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { catchError, filter, map, mergeMap, of, tap } from 'rxjs';
 import { User } from '../../../../../shared/interfaces/user.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserAddEditComponent } from '../../components/user-add-edit/user-add-edit.component';
+import { routerNavigationAction } from '@ngrx/router-store';
 
 @Injectable()
 
@@ -45,6 +45,32 @@ export class UserEffects {
       )
     )
   });
+
+  // loadUser2$ = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(
+  //       routerNavigationAction,
+  //     ),
+  //     filter(({ payload }) => payload.routerState.url.includes('edit-user')),
+  //     tap(({ payload }) => {
+  //
+  //       console.log(payload)
+  //       console.log(payload.routerState.root.paramMap);
+  //     }),
+  //     // mergeMap(({ payload }) => {
+  //     //   const id = Number(payload.event.state.root.paramMap.get('id')) || 0;
+  //     //   return this.userService.getUser(id)
+  //     //   .pipe(
+  //     //     map((res: User) => {
+  //     //       return userActions.loadUserSuccess({user: res})
+  //     //     }),
+  //     //     catchError((error: HttpErrorResponse) => of(userActions.loadUserFailure(error)))
+  //     //   )}
+  //     // )
+  //   )
+  // }, {
+  //   dispatch: false
+  // });
 
   addUser$ = createEffect(() => {
     return this.actions$.pipe(

@@ -3,9 +3,9 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { provideRouter } from '@angular/router';
 import { APP_ROUTES } from './app/APP_ROUTES';
-import { provideStore } from '@ngrx/store';
+import { provideState, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { provideRouterStore } from '@ngrx/router-store';
+import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { provideHttpClient } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -21,6 +21,7 @@ bootstrapApplication(AppComponent, {
     provideRouterStore(),
     provideAnimations(),
     importProvidersFrom(MatDialogModule),
+    provideState('router', routerReducer),
     provideStoreDevtools({
       maxAge: 25,
     }),

@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { LoaderComponent } from '../../../../../components/loader/loader.component';
 import { requestConformation } from '../../../../../store/actions/confirm';
-import { userFeature } from '../../state/reducers/user.reducer';
+import { userFeature } from '../../state/features/user.feature';
 
 @Component({
   selector: 'app-users-view',

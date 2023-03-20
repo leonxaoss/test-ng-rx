@@ -5,7 +5,7 @@ import { userActions } from '../../state/actions/user.action';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from '../../../../../shared/interfaces/user.interface';
-import { userFeature } from '../../state/reducers/user.reducer';
+import { userFeature } from '../../state/features/user.feature';
 import { LoaderComponent } from '../../../../../components/loader/loader.component';
 
 @Component({

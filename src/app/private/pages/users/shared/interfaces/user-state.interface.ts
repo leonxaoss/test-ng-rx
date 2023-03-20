@@ -3,6 +3,8 @@ import { User } from '../../../../../shared/interfaces/user.interface';
 export interface UserState {
   allUsers: User[];
   user: User;
-  userLoader: boolean;
-  userListLoader: boolean;
+  loaders: {
+    userLoader: boolean;
+    userListLoader: boolean;
+  };
 }
