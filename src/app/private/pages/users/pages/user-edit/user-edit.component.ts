@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { userActions } from '../../state/actions/user.action';
-import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from '../../../../../shared/interfaces/user.interface';
 import { userFeature } from '../../state/features/user.feature';
 import { LoaderComponent } from '../../../../../components/loader/loader.component';
+import { selectRouteParam } from '../../../../../store/selectors/route.selectors';
 
 @Component({
   selector: 'app-user-edit',
@@ -20,15 +20,12 @@ export class UserEditComponent implements OnInit {
   user$: Observable<User> = this.store.select(userFeature.selectUser);
   userLoader$: Observable<boolean> = this.store.select(userFeature.selectUserLoader);
 
-  constructor(private readonly store: Store, private activeRoute: ActivatedRoute) {
+  constructor(private readonly store: Store) {
   }
 
   ngOnInit(): void {
-    // this.store.select(selectRouteParam).subscribe(res => {
-    //   console.log(res);
+    // this.store.select(selectRouteParam('id')).subscribe(res => {
+    //   this.store.dispatch(userActions.loadUser({userId: Number(res) || 0}));
     // })
-    this.activeRoute.params.subscribe(res => {
-      this.store.dispatch(userActions.loadUser({userId: res['id']}));
-    })
   }
 }

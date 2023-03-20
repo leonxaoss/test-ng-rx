@@ -16,10 +16,10 @@ export const userActions = createActionGroup({
     'Add User Success': props<{user: User}>(),
     'Add User Failure':  props<{ error: HttpErrorResponse }>(),
     'Edit User': props<{user: User, userId: number}>(),
-    'Edit User Success': props<{user: User}>(),
+    'Edit User Success': props<{user: User, message?: string}>(),
     'Edit User Failure':  props<{ error: HttpErrorResponse }>(),
     'Remove User':  props<{userId: number}>(),
-    'Remove User Success':  props<{user: User}>(),
+    'Remove User Success':  props<{user: User, message?: string}>(),
     'Remove User Failure': props<{ error: HttpErrorResponse }>(),
   }
 })

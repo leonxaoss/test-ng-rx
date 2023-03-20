@@ -1,5 +1,5 @@
 import { userActions } from '../actions/user.action';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { UserService } from '../../providers/services/user/user.service';
 import { catchError, filter, map, mergeMap, of, tap } from 'rxjs';
 import { User } from '../../../../../shared/interfaces/user.interface';
@@ -8,6 +8,9 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserAddEditComponent } from '../../components/user-add-edit/user-add-edit.component';
 import { routerNavigationAction } from '@ngrx/router-store';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { selectRouteParam } from '../../../../../store/selectors/route.selectors';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 
@@ -37,40 +40,30 @@ export class UserEffects {
       ),
       mergeMap((action) => this.userService.getUser(action.userId)
         .pipe(
-          map((res: User) => {
-            return userActions.loadUserSuccess({user: res})
-          }),
+          map((res: User) => userActions.loadUserSuccess({user: res})),
           catchError((error: HttpErrorResponse) => of(userActions.loadUserFailure(error)))
         )
       )
     )
   });
 
-  // loadUser2$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(
-  //       routerNavigationAction,
-  //     ),
-  //     filter(({ payload }) => payload.routerState.url.includes('edit-user')),
-  //     tap(({ payload }) => {
-  //
-  //       console.log(payload)
-  //       console.log(payload.routerState.root.paramMap);
-  //     }),
-  //     // mergeMap(({ payload }) => {
-  //     //   const id = Number(payload.event.state.root.paramMap.get('id')) || 0;
-  //     //   return this.userService.getUser(id)
-  //     //   .pipe(
-  //     //     map((res: User) => {
-  //     //       return userActions.loadUserSuccess({user: res})
-  //     //     }),
-  //     //     catchError((error: HttpErrorResponse) => of(userActions.loadUserFailure(error)))
-  //     //   )}
-  //     // )
-  //   )
-  // }, {
-  //   dispatch: false
-  // });
+  loadUserFromEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(
+        routerNavigationAction,
+      ),
+      filter(({ payload }) => payload.routerState.url.includes('edit-user')),
+      concatLatestFrom(() => this.store.select(selectRouteParam('id'))),
+      map(res => Number(res[1])),
+      mergeMap((id) => {
+        return this.userService.getUser(id || 0)
+        .pipe(
+          map((res: User) => userActions.loadUserSuccess({user: res})),
+          catchError((error: HttpErrorResponse) => of(userActions.loadUserFailure(error)))
+        )}
+      )
+    )
+  });
 
   addUser$ = createEffect(() => {
     return this.actions$.pipe(
@@ -96,7 +89,7 @@ export class UserEffects {
       mergeMap((action) => this.userService.editUser(action.user, action.userId)
         .pipe(
           map((res: User) => {
-            return userActions.editUserSuccess({user: res})
+            return userActions.editUserSuccess({user: res, message: 'User has edited'})
           }),
           catchError((error: HttpErrorResponse) => of(userActions.editUserFailure(error)))
         )
@@ -112,7 +105,7 @@ export class UserEffects {
       mergeMap((action) => this.userService.deleteUser(action.userId)
         .pipe(
           map((res: User) => {
-            return userActions.removeUserSuccess({user: res})
+            return userActions.removeUserSuccess({user: res, message: 'User has removed'})
           }),
           catchError((error: HttpErrorResponse) => of(userActions.removeUserFailure(error)))
         )
@@ -137,11 +130,29 @@ export class UserEffects {
     dispatch: false,
   })
 
+  handleSuccessMessage$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(
+          userActions.editUserSuccess,
+          userActions.removeUserSuccess
+        ),
+        tap((action) => {
+          if(action.message) {
+            this.snackBar.open(action.message, 'Ok', { duration: 2000 })
+          }
+        })
+      ),
+    { dispatch: false }
+  );
+
 
   constructor(
     private readonly actions$: Actions,
     private readonly userService: UserService,
     public dialog: MatDialog,
+    private store: Store,
+    private readonly snackBar: MatSnackBar,
   ) {}
 
 }

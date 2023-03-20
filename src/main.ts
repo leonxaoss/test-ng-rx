@@ -12,6 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideEffects } from '@ngrx/effects';
 import * as ConfirmEffects from './app/store/effects/confirm';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -21,6 +22,7 @@ bootstrapApplication(AppComponent, {
     provideRouterStore(),
     provideAnimations(),
     importProvidersFrom(MatDialogModule),
+    importProvidersFrom(MatSnackBarModule),
     provideState('router', routerReducer),
     provideStoreDevtools({
       maxAge: 25,
