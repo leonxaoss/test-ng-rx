@@ -1,0 +1,30 @@
+@import 'src/assets/styles/shared/colors';
+@import 'src/assets/styles/shared/px-to-em';
+
+.private{
+  height: 100%;
+  display: flex;
+  &__sidebar{
+    flex-shrink: 0;
+  }
+  &__main{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+
+  }
+  &__content{
+    flex-grow: 1;
+    padding: 20px 30px;
+    background: rgba($grey-bg, 0.2);
+    //background: #f8f9f9;
+  }
+}
+
+app-header{
+  flex-shrink: 0;
+}
+
+app-footer{
+  flex-shrink: 0;
+}

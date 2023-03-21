@@ -1,0 +1,8 @@
+@import 'src/assets/styles/shared/colors';
+@import 'src/assets/styles/shared/px-to-em';
+
+.sidebar{
+  color: #fff;
+  background: $base-color;
+  height: 100%;
+}

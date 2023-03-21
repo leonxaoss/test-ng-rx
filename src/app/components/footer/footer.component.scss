@@ -1,0 +1,44 @@
+@import 'src/assets/styles/shared/colors';
+@import 'src/assets/styles/shared/px-to-em';
+
+.footer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba($grey-text, 0.2);
+  padding: 10px 30px;
+  &__left{
+    color: $base-color;
+    display: flex;
+    font-size: 10px;
+  }
+  &__copy{
+    margin-right: 15px;
+  }
+  &__right{
+    display: flex;
+    align-items: center;
+  }
+  &__line{
+    width: 1px;
+    height: 22px;
+    background: $base-color;
+    margin: 0 10px;
+  }
+}
+
+.logo_peterson{
+  display: flex;
+  align-items: center;
+  &__text{
+    width: 67px;
+    margin-right: 5px;
+  }
+  &__img{
+    width: 22px;
+  }
+}
+
+.logo_allocate{
+  width: 50px;
+}

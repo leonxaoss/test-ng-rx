@@ -1,0 +1,36 @@
+*{
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+img, picture, video, svg, figure{
+  display: block;
+  max-width: 100%;
+}
+
+body{
+  margin: 0;
+}
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
+html{
+  font-size: 1vw;
+}
+
+a, button {
+  cursor: pointer;
+
+}
+
+table {
+  width: 100%;
+}

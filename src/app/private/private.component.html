@@ -1,4 +1,12 @@
-<a [routerLink]="['dashboard']">dashboard</a> <br>
-<a [routerLink]="['users']">users</a>
-
-<router-outlet></router-outlet>
+<div class="private">
+  <div class="private__sidebar">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="private__main">
+    <app-header></app-header>
+    <div class="private__content">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>

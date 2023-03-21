@@ -1,0 +1,27 @@
+@import 'src/assets/styles/shared/colors';
+
+html{
+  font-size: 1vw;
+}
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: 'Ubuntu', sans-serif;
+  color: $grey;
+}
+ul, li{
+  list-style: none;
+  padding: 0;
+  margin: 0.5em 0;
+}
+.mat-icon{
+  cursor: pointer;
+}
+.container{
+  position: relative;
+}
+.bold{
+  font-weight: bold;
+}

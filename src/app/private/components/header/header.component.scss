@@ -1,0 +1,11 @@
+@import 'src/assets/styles/shared/colors';
+@import 'src/assets/styles/shared/px-to-em';
+
+.header{
+  color: $base-color;
+  padding: 40px 30px;
+  &__title{
+    font-size: emr(26);
+  }
+  border-bottom: 1px solid $grey-border;
+}
